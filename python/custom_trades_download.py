@@ -45,10 +45,15 @@ def custom_monthly_trades(trading_type, symbols, num_symbols, years, months, sta
         current += 1
 
 
-monthly = True
+monthly = False
 daily = True
 futures = True
-PATH_FOLDER = "E:\\data\\binance_data\\data"
+disk = "E"
+PATH_FOLDER = disk + ":\\data\\binance_data\\"
+if not os.path.exists(PATH_FOLDER):
+    disk = "C"
+    PATH_FOLDER = disk + ":\\data\\binance_data\\"
+
 if futures:
     PATH_FOLDER = os.path.join(PATH_FOLDER, "futures")
 sub_folders = [x[0] for x in os.walk(PATH_FOLDER)]
@@ -67,6 +72,9 @@ for market_type in market_types:
     if monthly:
         monthly_paths = [x[0] for x in os.walk(os.path.join(PATH_FOLDER, market_type, "monthly", "trades"))]
 
+    if daily:
+        daily_paths = [x[0] for x in os.walk(os.path.join(PATH_FOLDER, market_type, "daily", "trades"))]
+    
     print("End of loop!")
 
 print("End of script!")
